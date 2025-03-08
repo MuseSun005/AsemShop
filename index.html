@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин MUSVEXUS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в MUSVEXUS</h1>
+    </header>
+    
+    <section id="products">
+        <div class="product">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Freshly_baked_bread_loaves.jpg" alt="Хлеб">
+            <h2>Хлеб</h2>
+            <p>Свежий хлеб высшего качества</p>
+            <span>Цена: 220 ₸</span>
+            <button onclick="addToCart('Хлеб', 220)">Добавить в корзину</button>
+        </div>
+        <div class="product">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Brown_bread_loaf.jpg" alt="Хлеб 2 сорт">
+            <h2>Хлеб 2 сорт</h2>
+            <p>Хлеб второго сорта, доступный и вкусный</p>
+            <span>Цена: 170 ₸</span>
+            <button onclick="addToCart('Хлеб 2 сорт', 170)">Добавить в корзину</button>
+        </div>
+    </section>
+    
+    <section id="cart">
+        <h2>Корзина</h2>
+        <ul id="cart-items"></ul>
+        <p>Общая сумма: <span id="total-price">0</span> ₸</p>
+        <button onclick="sendOrder()">Отправить заказ</button>
+    </section>
+    
+    <script>
+        let cart = [];
+        
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+        
+        function updateCart() {
+            let cartList = document.getElementById("cart-items");
+            let totalPrice = document.getElementById("total-price");
+            cartList.innerHTML = "";
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                let li = document.createElement("li");
+                li.textContent = `${item.name} - ${item.price} ₸`;
+                cartList.appendChild(li);
+                total += item.price;
+            });
+            
+            totalPrice.textContent = total;
+        }
+        
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert("Корзина пуста!");
+                return;
+            }
+            
+            let orderText = cart.map(item => `${item.name} - ${item.price} ₸`).join("%0A");
+            let phoneNumber = "87057782277";
+            let whatsappURL = `https://wa.me/${phoneNumber}?text=Заказ:%0A${orderText}`;
+            
+            window.open(whatsappURL, "_blank");
+            cart = [];
+            updateCart();
+        }
+    </script>
+</body>
+</html>
