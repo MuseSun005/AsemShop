@@ -3,93 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Магазин AsemShop</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Магазин</title>
     <style>
-        body {
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: Arial, sans-serif;
-        }
-        .product img {
-            width: 150px;
-            height: auto;
-        }
+        body { font-family: Arial, sans-serif; }
+        .category { font-size: 20px; font-weight: bold; margin-top: 20px; }
+        .product { display: flex; justify-content: space-between; align-items: center; padding: 5px; border-bottom: 1px solid #ddd; }
+        .cart { margin-top: 20px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 5px; }
+        .send-button { margin-top: 10px; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Добро пожаловать в AsemShop</h1>
-    </header>
+    <h1>Магазин</h1>
+    <div id="products">
+        <div class="category">🥚 Яйца</div>
+        <div class="product" data-name="Яйцо С0" data-price="57">Яйцо С0 — 57₸ <span onclick="addToCart(this)">✔️</span></div>
+        <div class="product" data-name="Яйцо С1" data-price="56">Яйцо С1 — 56₸ <span onclick="addToCart(this)">✔️</span></div>
+        <div class="product" data-name="Яйцо С2" data-price="51">Яйцо С2 — 51₸ <span onclick="addToCart(this)">✔️</span></div>
+        
+        <div class="category">🥔 Овощи</div>
+        <div class="product" data-name="Картошка белая" data-price="320">Картошка белая (1 кг) — 320₸ <span onclick="addToCart(this)">✔️</span></div>
+        <div class="product" data-name="Яблоко Польша" data-price="720">Яблоко Польша (1 кг) — 720₸ <span onclick="addToCart(this)">✔️</span></div>
+        
+        <div class="category">🍬 Сладости</div>
+        <div class="product" data-name="Печенье Halley" data-price="1100">Печенье Halley 30г (8 пак) — 1100₸ <span onclick="addToCart(this)">✔️</span></div>
+        <div class="product" data-name="Архис Тан Тан" data-price="100">Архис Тан Тан — 100₸ <span onclick="addToCart(this)">✔️</span></div>
+        <div class="product" data-name="Конфеты Джаззи Нуга" data-price="1777">Конфеты Джаззи Нуга (1 кг) — 1777₸ <span onclick="addToCart(this)">✔️</span></div>
+        
+        <div class="category">🥤 Напитки</div>
+        <div class="product" data-name="Мастер Лимонад" data-price="210">Мастер Лимонад — 210₸ <span onclick="addToCart(this)">✔️</span></div>
+        <div class="product" data-name="Горилла Манго" data-price="460">Горилла Манго — 460₸ <span onclick="addToCart(this)">✔️</span></div>
+        
+        <div class="category">🛒 Бытовые товары</div>
+        <div class="product" data-name="Хоз. крышка" data-price="25">Хоз. крышка — 25₸ <span onclick="addToCart(this)">✔️</span></div>
+        <div class="product" data-name="Одноразовый стакан (маленький)" data-price="10">Одноразовый стакан (маленький) — 10₸ <span onclick="addToCart(this)">✔️</span></div>
+    </div>
     
-    <section id="products">
-        <div class="product">
-            <img src="bread1.png" alt="Хлеб">
-            <h2>Хлеб</h2>
-            <span>Цена: 220 ₸</span>
-            <button onclick="addToCart('Хлеб', 220)">Добавить в корзину</button>
-        </div>
-        <div class="product">
-            <img src="bread2.png" alt="Хлеб 2 сорт">
-            <h2>Хлеб 2 сорт</h2>
-            <span>Цена: 170 ₸</span>
-            <button onclick="addToCart('Хлеб 2 сорт', 170)">Добавить в корзину</button>
-        </div>
-    </section>
-    
-    <section id="cart">
-        <h2>Корзина</h2>
-        <ul id="cart-items"></ul>
-        <p>Общая сумма: <span id="total-price">0</span> ₸</p>
-        <button onclick="sendOrder()">Отправить заказ</button>
-    </section>
+    <h2>🛒 Корзина</h2>
+    <div id="cart"></div>
+    <button class="send-button" onclick="sendOrder()">Отправить заказ в WhatsApp</button>
     
     <script>
         let cart = [];
-        
-        function addToCart(name, price) {
+
+        function addToCart(element) {
+            let product = element.parentElement;
+            let name = product.getAttribute('data-name');
+            let price = product.getAttribute('data-price');
             cart.push({ name, price });
             updateCart();
         }
-        
-        function updateCart() {
-            let cartList = document.getElementById("cart-items");
-            let totalPrice = document.getElementById("total-price");
-            cartList.innerHTML = "";
-            let total = 0;
-            
-            cart.forEach((item, index) => {
-                let li = document.createElement("li");
-                li.textContent = `${item.name} - ${item.price} ₸`;
-                let removeBtn = document.createElement("button");
-                removeBtn.textContent = "❌";
-                removeBtn.onclick = () => removeFromCart(index);
-                li.appendChild(removeBtn);
-                cartList.appendChild(li);
-                total += item.price;
-            });
-            
-            totalPrice.textContent = total;
-        }
-        
+
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCart();
         }
-        
+
+        function updateCart() {
+            let cartDiv = document.getElementById('cart');
+            cartDiv.innerHTML = '';
+            cart.forEach((item, index) => {
+                cartDiv.innerHTML += `<div class='cart-item'>${item.name} — ${item.price}₸ <span onclick='removeFromCart(${index})'>❌</span></div>`;
+            });
+        }
+
         function sendOrder() {
-            if (cart.length === 0) {
-                alert("Корзина пуста!");
-                return;
-            }
-            
-            let orderText = cart.map(item => `${item.name} - ${item.price} ₸`).join("%0A");
-            let phoneNumber = "77057782277";
-            let whatsappURL = `https://wa.me/${phoneNumber}?text=Заказ:%20${orderText}`;
-            
-            window.open(whatsappURL, "_blank");
-            cart = [];
-            updateCart();
+            let message = 'Заказ:\n';
+            cart.forEach(item => {
+                message += `${item.name} — ${item.price}₸\n`;
+            });
+            let phone = '87057782277';
+            let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
         }
     </script>
 </body>
