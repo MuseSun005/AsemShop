@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магазин AsemShop</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+        .product img {
+            width: 150px;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -50,11 +61,20 @@
             cart.forEach((item, index) => {
                 let li = document.createElement("li");
                 li.textContent = `${item.name} - ${item.price} ₸`;
+                let removeBtn = document.createElement("button");
+                removeBtn.textContent = "❌";
+                removeBtn.onclick = () => removeFromCart(index);
+                li.appendChild(removeBtn);
                 cartList.appendChild(li);
                 total += item.price;
             });
             
             totalPrice.textContent = total;
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
         }
         
         function sendOrder() {
@@ -64,8 +84,8 @@
             }
             
             let orderText = cart.map(item => `${item.name} - ${item.price} ₸`).join("%0A");
-            let phoneNumber = "87057782277";
-            let whatsappURL = `https://wa.me/${phoneNumber}?text=Заказ:%0A${orderText}`;
+            let phoneNumber = "77057782277";
+            let whatsappURL = `https://wa.me/${phoneNumber}?text=Заказ:%20${orderText}`;
             
             window.open(whatsappURL, "_blank");
             cart = [];
