@@ -34,8 +34,41 @@
     
     <section id="catalog">
         <h2>Каталог</h2>
+
+        <div class="category" id="vegetables">
+            <h2>Овощи</h2>
+            <div class="product">
+                <h4>Картошка белая</h4>
+                <p>Цена: 320 ₸/кг</p>
+                <input type="number" id="potato-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
+                <button onclick="addToCart('Картошка белая', 320, 'potato-weight')">Добавить</button>
+
+                <h4>Лук</h4>
+                <p>Цена: 180 ₸/кг</p>
+                <input type="number" id="onion-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
+                <button onclick="addToCart('Лук', 180, 'onion-weight')">Добавить</button>
+
+                <h4>Морковь</h4>
+                <p>Цена: 200 ₸/кг</p>
+                <input type="number" id="carrot-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
+                <button onclick="addToCart('Морковь', 200, 'carrot-weight')">Добавить</button>
+
+                <h4>Чеснок</h4>
+                <p>Цена: 1800 ₸/кг</p>
+                <input type="number" id="garlic-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
+                <button onclick="addToCart('Лук', 1800, 'garlic-weight')">Добавить</button>
+
+
+
+
+            </div>
+        </div>
+
+
+
+
         <div class="category" id="fruits">
-            <h3>Фрукты</h3>
+            <h2>Фрукты</h2>
             <div class="product">
                 <h4>Яблоки</h4>
                 <p>Цена: 500 ₸/кг</p>
@@ -56,16 +89,15 @@
                 <p>Цена: 1250 ₸/кг</p>
                 <input type="number" id="orange-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
                 <button onclick="addToCart('Апельсин', 1250, 'orange-weight ')">Добавить</button>
-
-
-            </div>
         </div>
+
+
         <div class="category" id="dairy">
             <h3>Молочные продукты</h3>
             <div class="product">
-                <h4>Молоко</h4>
-                <p>Цена: 600 ₸/л</p>
-                <button onclick="addToCart('Молоко', 600)">Добавить</button>
+                <h4>Молоко<h4>
+                <p>Цена: 600 ₸/шт</p>
+                <button onclick="addToCart('Молоко', 600, null, false)">Добавить</button>
             </div>
         </div>
     </section>
@@ -86,22 +118,24 @@
     <script>
         let cart = [];
         
-        function addToCart(name, pricePerKg, weightInputId = null) {
-            let weight = 1; // По умолчанию 1 кг
+        function addToCart(name, price, weightInputId = null, isWeighted = true) {
+            let quantity = 1;
             
-            if (weightInputId) {
+            if (isWeighted && weightInputId) {
                 let weightInput = document.getElementById(weightInputId);
                 if (weightInput) {
-                    weight = parseFloat(weightInput.value); // Вводится сразу в килограммах
-                    if (isNaN(weight) || weight <= 0) {
+                    quantity = parseFloat(weightInput.value);
+                    if (isNaN(quantity) || quantity <= 0) {
                         alert('Введите корректный вес в килограммах!');
                         return;
                     }
                 }
             }
             
-            let totalPrice = Math.round(pricePerKg * weight);
-            cart.push({ name, weight, totalPrice });
+            let totalPrice = Math.round(price * quantity);
+            let itemLabel = isWeighted ? `${quantity.toFixed(2)} кг` : `${quantity} шт`;
+            
+            cart.push({ name, quantity, totalPrice, itemLabel });
             updateCart();
         }
         
@@ -113,7 +147,7 @@
             cart.forEach((item, index) => {
                 totalPrice += item.totalPrice;
                 let li = document.createElement('li');
-                li.textContent = `${item.name} - ${item.weight.toFixed(2)} кг - ${item.totalPrice} ₸`;
+                li.textContent = `${item.name} - ${item.itemLabel} - ${item.totalPrice} ₸`;
                 let removeBtn = document.createElement('button');
                 removeBtn.textContent = 'Удалить';
                 removeBtn.onclick = () => removeFromCart(index);
@@ -140,7 +174,7 @@
             }
             let orderText = 'Заказ:\n';
             cart.forEach(item => {
-                orderText += `${item.name} - ${item.weight.toFixed(2)} кг - ${item.totalPrice} ₸\n`;
+                orderText += `${item.name} - ${item.itemLabel} - ${item.totalPrice} ₸\n`;
             });
             let total = document.getElementById('total-price').textContent;
             orderText += `Итого: ${total} ₸`;
