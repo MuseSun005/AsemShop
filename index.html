@@ -3,66 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Магазин</title>
+    <title>Асем - Продуктовый магазин</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body { font-family: Arial, sans-serif; }
-        .category { margin-top: 20px; font-size: 20px; font-weight: bold; }
-        .product { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
-        .cart { margin-top: 20px; padding: 10px; border: 1px solid #000; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; }
-        .cart-item button { color: red; border: none; background: none; cursor: pointer; font-size: 18px; }
-        button { cursor: pointer; }
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #000;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+        }
+        h1, h2, h3, p, a, button {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h1>Магазин</h1>
-    <div id="products">
-        <div class="category">🥚 Яйца</div>
-        <div class="product"><span>Яйцо С0 — 57₸</span><button onclick="addToCart('Яйцо С0', 57)">✔</button></div>
-        <div class="product"><span>Яйцо С1 — 56₸</span><button onclick="addToCart('Яйцо С1', 56)">✔</button></div>
-        <div class="product"><span>Яйцо С2 — 51₸</span><button onclick="addToCart('Яйцо С2', 51)">✔</button></div>
-        
-        <div class="category">🥔 Овощи</div>
-        <div class="product"><span>Картошка белая (1 кг) — 320₸</span><button onclick="addToCart('Картошка белая', 320)">✔</button></div>
-        <div class="product"><span>Яблоко Польша (1 кг) — 720₸</span><button onclick="addToCart('Яблоко Польша', 720)">✔</button></div>
-    </div>
+    <header>
+        <h1>Асем - Продукты</h1>
+        <input type="text" id="search" placeholder="Поиск по товарам..." onkeyup="searchProducts()">
+        <nav>
+            <ul>
+                <li><a href="#catalog">Каталог</a></li>
+                <li><a href="#cart">Корзина</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
     
-    <div class="cart">
+    <section id="catalog">
+        <h2>Каталог</h2>
+        <div class="category" id="fruits">
+            <h3>Фрукты</h3>
+            <div class="product">
+                <img src="apple.jpg" alt="Яблоки">
+                <p>Цена: 500 ₸/кг</p>
+                <button onclick="addToCart('Яблоки', 500)">Добавить</button>
+            </div>
+        </div>
+        <div class="category" id="dairy">
+            <h3>Молочные продукты</h3>
+            <div class="product">
+                <img src="milk.jpg" alt="Молоко">
+                <p>Цена: 600 ₸/л</p>
+                <button onclick="addToCart('Молоко', 600)">Добавить</button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="cart">
         <h2>Корзина</h2>
-        <div id="cart-items"></div>
-        <button onclick="sendToWhatsApp()">Отправить в WhatsApp</button>
-    </div>
-
+        <ul id="cart-items"></ul>
+        <p>Итого: <span id="total-price">0</span> ₸</p>
+        <button onclick="clearCart()">Очистить корзину</button>
+        <button onclick="sendOrder()">Отправить в WhatsApp</button>
+    </section>
+    
+    <section id="contacts">
+        <h2>Контакты</h2>
+        <p>Свяжитесь с нами: <a href="https://wa.me/77057782277" target="_blank">WhatsApp</a></p>
+    </section>
+    
     <script>
         let cart = [];
-
-        function addToCart(product, price) {
-            cart.push({ product, price });
+        
+        function addToCart(name, price) {
+            cart.push({ name, price });
             updateCart();
         }
-
+        
+        function updateCart() {
+            let cartList = document.getElementById('cart-items');
+            let totalPrice = 0;
+            cartList.innerHTML = '';
+            
+            cart.forEach((item, index) => {
+                totalPrice += item.price;
+                let li = document.createElement('li');
+                li.textContent = `${item.name} - ${item.price} ₸`;
+                let removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Удалить';
+                removeBtn.onclick = () => removeFromCart(index);
+                li.appendChild(removeBtn);
+                cartList.appendChild(li);
+            });
+            document.getElementById('total-price').textContent = totalPrice;
+        }
+        
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCart();
         }
-
-        function updateCart() {
-            let cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
-            cart.forEach((item, index) => {
-                let div = document.createElement('div');
-                div.className = 'cart-item';
-                div.innerHTML = `${item.product} — ${item.price}₸ <button onclick="removeFromCart(${index})">✖</button>`;
-                cartItems.appendChild(div);
-            });
+        
+        function clearCart() {
+            cart = [];
+            updateCart();
         }
-
-        function sendToWhatsApp() {
-            let message = 'Заказ:\n';
-            cart.forEach(item => { message += `${item.product} — ${item.price}₸\n`; });
-            let phone = '87057782277';
-            let url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+        
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert('Корзина пуста!');
+                return;
+            }
+            let orderText = 'Заказ:\n';
+            cart.forEach(item => {
+                orderText += `${item.name} - ${item.price} ₸\n`;
+            });
+            let total = document.getElementById('total-price').textContent;
+            orderText += `Итого: ${total} ₸`;
+            let phoneNumber = '77057782277';
+            let whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(orderText)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        function searchProducts() {
+            let input = document.getElementById('search').value.toLowerCase();
+            let products = document.querySelectorAll('.product');
+            
+            products.forEach(product => {
+                let title = product.querySelector('p').textContent.toLowerCase();
+                product.style.display = title.includes(input) ? 'block' : 'none';
+            });
         }
     </script>
 </body>
