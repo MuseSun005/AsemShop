@@ -37,15 +37,33 @@
         <div class="category" id="fruits">
             <h3>Фрукты</h3>
             <div class="product">
-                <img src="apple.jpg" alt="Яблоки">
+                <h4>Яблоки</h4>
                 <p>Цена: 500 ₸/кг</p>
-                <button onclick="addToCart('Яблоки', 500)">Добавить</button>
+                <input type="number" id="apple-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
+                <button onclick="addToCart('Яблоки', 500, 'apple-weight')">Добавить</button>
+
+                <h4>Банан</h4>
+                <p>Цена: 950 ₸/кг</p>
+                <input type="number" id="banana-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
+                <button onclick="addToCart('Банан', 950, 'banana-weight')">Добавить</button>
+
+                <h4>Мандарин</h4>
+                <p>Цена: 1300 ₸/кг</p>
+                <input type="number" id="tangerine-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
+                <button onclick="addToCart('Мандарин', 1300, 'tangerine-weight')">Добавить</button>
+
+                <h4>Апельсин</h4>
+                <p>Цена: 1250 ₸/кг</p>
+                <input type="number" id="orange-weight" placeholder="Вес (кг)" min="0.1" step="0.1">
+                <button onclick="addToCart('Апельсин', 1250, 'orange-weight ')">Добавить</button>
+
+
             </div>
         </div>
         <div class="category" id="dairy">
             <h3>Молочные продукты</h3>
             <div class="product">
-                <img src="milk.jpg" alt="Молоко">
+                <h4>Молоко</h4>
                 <p>Цена: 600 ₸/л</p>
                 <button onclick="addToCart('Молоко', 600)">Добавить</button>
             </div>
@@ -68,8 +86,22 @@
     <script>
         let cart = [];
         
-        function addToCart(name, price) {
-            cart.push({ name, price });
+        function addToCart(name, pricePerKg, weightInputId = null) {
+            let weight = 1; // По умолчанию 1 кг
+            
+            if (weightInputId) {
+                let weightInput = document.getElementById(weightInputId);
+                if (weightInput) {
+                    weight = parseFloat(weightInput.value); // Вводится сразу в килограммах
+                    if (isNaN(weight) || weight <= 0) {
+                        alert('Введите корректный вес в килограммах!');
+                        return;
+                    }
+                }
+            }
+            
+            let totalPrice = Math.round(pricePerKg * weight);
+            cart.push({ name, weight, totalPrice });
             updateCart();
         }
         
@@ -79,9 +111,9 @@
             cartList.innerHTML = '';
             
             cart.forEach((item, index) => {
-                totalPrice += item.price;
+                totalPrice += item.totalPrice;
                 let li = document.createElement('li');
-                li.textContent = `${item.name} - ${item.price} ₸`;
+                li.textContent = `${item.name} - ${item.weight.toFixed(2)} кг - ${item.totalPrice} ₸`;
                 let removeBtn = document.createElement('button');
                 removeBtn.textContent = 'Удалить';
                 removeBtn.onclick = () => removeFromCart(index);
@@ -108,7 +140,7 @@
             }
             let orderText = 'Заказ:\n';
             cart.forEach(item => {
-                orderText += `${item.name} - ${item.price} ₸\n`;
+                orderText += `${item.name} - ${item.weight.toFixed(2)} кг - ${item.totalPrice} ₸\n`;
             });
             let total = document.getElementById('total-price').textContent;
             orderText += `Итого: ${total} ₸`;
