@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дом & Еда - Интернет-магазин</title>
+    <title>Дом & магазин</title>
     <style>
         * {
             margin: 0;
@@ -378,7 +378,7 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <div class="logo">🏠 Дом & Еда</div>
+                <div class="logo">🏠 Дом Еда</div>
                 <button class="cart-btn" onclick="openCart()">
                     🛒 Корзина
                     <span class="cart-count" id="cartCount">0</span>
@@ -406,7 +406,7 @@
                 <button class="close-cart" onclick="closeCart()">&times;</button>
             </div>
             <div id="cartItems"></div>
-            <div class="cart-total" id="cartTotal">Итого: 0 ₽</div>
+            <div class="cart-total" id="cartTotal">Итого: 0 ₸</div>
             
             <div class="whatsapp-form">
                 <h3>📱 Оформить заказ</h3>
@@ -433,30 +433,30 @@
         // База данных товаров
         const products = [
             // Продукты питания
-            { id: 1, name: 'Хлеб белый', price: 35, category: 'food', emoji: '🍞' },
-            { id: 2, name: 'Молоко 1л', price: 65, category: 'food', emoji: '🥛' },
-            { id: 3, name: 'Яйца 10шт', price: 85, category: 'food', emoji: '🥚' },
-            { id: 4, name: 'Мясо говядина 1кг', price: 650, category: 'food', emoji: '🥩' },
-            { id: 5, name: 'Картофель 1кг', price: 45, category: 'food', emoji: '🥔' },
-            { id: 6, name: 'Помидоры 1кг', price: 120, category: 'food', emoji: '🍅' },
-            { id: 7, name: 'Огурцы 1кг', price: 95, category: 'food', emoji: '🥒' },
-            { id: 8, name: 'Рис 1кг', price: 90, category: 'food', emoji: '🍚' },
+            { id: 1, name: 'Хлеб белый', price: 180, category: 'food', emoji: '🍞' },
+            { id: 2, name: 'Молоко 1л', price: 320, category: 'food', emoji: '🥛' },
+            { id: 3, name: 'Яйца 10шт', price: 480, category: 'food', emoji: '🥚' },
+            { id: 4, name: 'Мясо говядина 1кг', price: 2800, category: 'food', emoji: '🥩' },
+            { id: 5, name: 'Картофель 1кг', price: 220, category: 'food', emoji: '🥔' },
+            { id: 6, name: 'Помидоры 1кг', price: 580, category: 'food', emoji: '🍅' },
+            { id: 7, name: 'Огурцы 1кг', price: 450, category: 'food', emoji: '🥒' },
+            { id: 8, name: 'Рис 1кг', price: 420, category: 'food', emoji: '🍚' },
             
             // Товары для дома
-            { id: 9, name: 'Стиральный порошок', price: 280, category: 'household', emoji: '🧴' },
-            { id: 10, name: 'Туалетная бумага 8рул', price: 320, category: 'household', emoji: '🧻' },
-            { id: 11, name: 'Средство для мытья посуды', price: 85, category: 'household', emoji: '🧽' },
-            { id: 12, name: 'Мусорные пакеты 30шт', price: 120, category: 'household', emoji: '🗑️' },
-            { id: 13, name: 'Освежитель воздуха', price: 180, category: 'household', emoji: '💨' },
-            { id: 14, name: 'Губки для посуды 5шт', price: 65, category: 'household', emoji: '🧹' },
+            { id: 9, name: 'Стиральный порошок', price: 1200, category: 'household', emoji: '🧴' },
+            { id: 10, name: 'Туалетная бумага 8рул', price: 1350, category: 'household', emoji: '🧻' },
+            { id: 11, name: 'Средство для мытья посуды', price: 380, category: 'household', emoji: '🧽' },
+            { id: 12, name: 'Мусорные пакеты 30шт', price: 520, category: 'household', emoji: '🗑️' },
+            { id: 13, name: 'Освежитель воздуха', price: 780, category: 'household', emoji: '💨' },
+            { id: 14, name: 'Губки для посуды 5шт', price: 280, category: 'household', emoji: '🧹' },
             
             // Напитки
-            { id: 15, name: 'Кока-кола 1.5л', price: 95, category: 'drinks', emoji: '🥤' },
-            { id: 16, name: 'Сок апельсиновый 1л', price: 85, category: 'drinks', emoji: '🍊' },
-            { id: 17, name: 'Вода питьевая 5л', price: 75, category: 'drinks', emoji: '💧' },
-            { id: 18, name: 'Чай черный 100г', price: 180, category: 'drinks', emoji: '🍵' },
-            { id: 19, name: 'Кофе растворимый 200г', price: 420, category: 'drinks', emoji: '☕' },
-            { id: 20, name: 'Энергетик 0.5л', price: 120, category: 'drinks', emoji: '⚡' }
+            { id: 15, name: 'Кока-кола 1.5л', price: 420, category: 'drinks', emoji: '🥤' },
+            { id: 16, name: 'Сок апельсиновый 1л', price: 380, category: 'drinks', emoji: '🍊' },
+            { id: 17, name: 'Вода питьевая 5л', price: 320, category: 'drinks', emoji: '💧' },
+            { id: 18, name: 'Чай черный 100г', price: 780, category: 'drinks', emoji: '🍵' },
+            { id: 19, name: 'Кофе растворимый 200г', price: 1800, category: 'drinks', emoji: '☕' },
+            { id: 20, name: 'Энергетик 0.5л', price: 520, category: 'drinks', emoji: '⚡' }
         ];
 
         let cart = [];
@@ -475,7 +475,7 @@
                 <div class="product-card">
                     <div class="product-image">${product.emoji}</div>
                     <div class="product-name">${product.name}</div>
-                    <div class="product-price">${product.price} ₽</div>
+                    <div class="product-price">${product.price} ₸</div>
                     <button class="add-to-cart" onclick="addToCart(${product.id})">
                         Добавить в корзину
                     </button>
@@ -533,7 +533,7 @@
             
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = '<div class="empty-cart">Ваша корзина пуста</div>';
-                document.getElementById('cartTotal').textContent = 'Итого: 0 ₽';
+                document.getElementById('cartTotal').textContent = 'Итого: 0 ₸';
                 return;
             }
 
@@ -541,7 +541,7 @@
                 <div class="cart-item">
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.emoji} ${item.name}</div>
-                        <div class="cart-item-price">${item.price} ₽ за шт.</div>
+                        <div class="cart-item-price">${item.price} ₸ за шт.</div>
                     </div>
                     <div class="quantity-controls">
                         <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
@@ -553,7 +553,7 @@
             `).join('');
 
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            document.getElementById('cartTotal').textContent = `Итого: ${total} ₽`;
+            document.getElementById('cartTotal').textContent = `Итого: ${total} ₸`;
         }
 
         function changeQuantity(productId, change) {
