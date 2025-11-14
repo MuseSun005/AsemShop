@@ -82,14 +82,72 @@
             font-weight: bold;
         }
 
-        .categories {
-            display: flex;
-            gap: 1rem;
+        .search-container {
             margin-bottom: 2rem;
-            flex-wrap: wrap;
+            text-align: center;
         }
 
-        .category-btn {
+        .search-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-desc {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .back-btn {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -99,13 +157,13 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            margin-bottom: 2rem;
         }
 
-        .category-btn:hover, .category-btn.active {
+        .back-btn:hover {
             background: rgba(255, 255, 255, 0.9);
             color: #764ba2;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .products-grid {
@@ -150,10 +208,32 @@
         }
 
         .product-price {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.2rem;
             color: #27ae60;
             margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .weight-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .weight-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .weight-unit {
+            text-align: center;
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
         }
 
         .add-to-cart {
@@ -237,7 +317,13 @@
 
         .cart-item-name {
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-weight {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.3rem;
         }
 
         .cart-item-price {
@@ -353,6 +439,21 @@
             color: #999;
         }
 
+        .hidden {
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
         @media (max-width: 768px) {
             .header-content {
                 padding: 0 1rem;
@@ -360,6 +461,10 @@
 
             .logo {
                 font-size: 1.5rem;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
             }
 
             .products-grid {
@@ -370,6 +475,16 @@
             .cart-content {
                 width: 95%;
                 padding: 1rem;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .quantity-controls {
+                margin: 0;
             }
         }
     </style>
@@ -386,15 +501,49 @@
             </div>
         </header>
 
-        <div class="categories">
-            <button class="category-btn active" onclick="filterProducts('all')">Все товары</button>
-            <button class="category-btn" onclick="filterProducts('food')">🍎 Продукты</button>
-            <button class="category-btn" onclick="filterProducts('household')">🏠 Товары для дома</button>
-            <button class="category-btn" onclick="filterProducts('drinks')">🥤 Напитки</button>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔍 Поиск товаров..." 
+                   onkeyup="searchProducts()" class="search-input">
         </div>
 
-        <div class="products-grid" id="productsGrid">
-            <!-- Товары будут добавлены через JavaScript -->
+        <!-- Основные категории -->
+        <div class="categories" id="mainCategories">
+            <div class="category-card" onclick="showSubcategories('food')">
+                <div class="category-icon">🍎</div>
+                <div class="category-name">Продукты питания</div>
+                <div class="category-desc">Овощи, фрукты, мясо, молочные продукты</div>
+            </div>
+            <div class="category-card" onclick="showSubcategories('household')">
+                <div class="category-icon">🏠</div>
+                <div class="category-name">Товары для дома</div>
+                <div class="category-desc">Бытовая химия, хозяйственные товары</div>
+            </div>
+            <div class="category-card" onclick="showSubcategories('drinks')">
+                <div class="category-icon">🥤</div>
+                <div class="category-name">Напитки</div>
+                <div class="category-desc">Соки, воды, чай, кофе</div>
+            </div>
+            <div class="category-card" onclick="showSubcategories('bakery')">
+                <div class="category-icon">🥖</div>
+                <div class="category-name">Выпечка</div>
+                <div class="category-desc">Хлеб, булочки, кондитерские изделия</div>
+            </div>
+        </div>
+
+        <!-- Подкатегории продуктов -->
+        <div class="hidden" id="subcategoriesSection">
+            <button class="back-btn" onclick="showMainCategories()">← Назад к категориям</button>
+            <div class="categories" id="subcategoriesGrid">
+                <!-- Подкатегории будут загружены через JavaScript -->
+            </div>
+        </div>
+
+        <!-- Товары -->
+        <div class="hidden" id="productsSection">
+            <button class="back-btn" onclick="showSubcategories(currentMainCategory)">← Назад к подкатегориям</button>
+            <div class="products-grid" id="productsGrid">
+                <!-- Товары будут добавлены через JavaScript -->
+            </div>
         </div>
     </div>
 
@@ -430,88 +579,241 @@
     </div>
 
     <script>
+        // Структура данных
+        const categories = {
+            food: {
+                name: "Продукты питания",
+                subcategories: {
+                    vegetables: { name: "🥬 Овощи", emoji: "🥬" },
+                    fruits: { name: "🍓 Фрукты", emoji: "🍓" },
+                    meat: { name: "🥩 Мясо", emoji: "🥩" },
+                    dairy: { name: "🥛 Молочные продукты", emoji: "🥛" },
+                    groceries: { name: "🍚 Бакалея", emoji: "🍚" }
+                }
+            },
+            household: {
+                name: "Товары для дома",
+                subcategories: {
+                    cleaning: { name: "🧹 Уборка", emoji: "🧹" },
+                    hygiene: { name: "🧴 Гигиена", emoji: "🧴" },
+                    kitchen: { name: "🍴 Кухня", emoji: "🍴" }
+                }
+            },
+            drinks: {
+                name: "Напитки",
+                subcategories: {
+                    juices: { name: "🍹 Соки", emoji: "🍹" },
+                    water: { name: "💧 Вода", emoji: "💧" },
+                    hot_drinks: { name: "☕ Горячие напитки", emoji: "☕" }
+                }
+            },
+            bakery: {
+                name: "Выпечка",
+                subcategories: {
+                    bread: { name: "🥖 Хлеб", emoji: "🥖" },
+                    pastries: { name: "🥐 Выпечка", emoji: "🥐" },
+                    sweets: { name: "🍰 Кондитерские изделия", emoji: "🍰" }
+                }
+            }
+        };
+
         // База данных товаров
-        const products = [
-            // Продукты питания
-            { id: 1, name: 'Хлеб белый', price: 180, category: 'food', emoji: '🍞' },
-            { id: 2, name: 'Молоко 1л', price: 320, category: 'food', emoji: '🥛' },
-            { id: 3, name: 'Яйца 10шт', price: 480, category: 'food', emoji: '🥚' },
-            { id: 4, name: 'Мясо говядина 1кг', price: 2800, category: 'food', emoji: '🥩' },
-            { id: 5, name: 'Картофель 1кг', price: 220, category: 'food', emoji: '🥔' },
-            { id: 6, name: 'Помидоры 1кг', price: 580, category: 'food', emoji: '🍅' },
-            { id: 7, name: 'Огурцы 1кг', price: 450, category: 'food', emoji: '🥒' },
-            { id: 8, name: 'Рис 1кг', price: 420, category: 'food', emoji: '🍚' },
-            
-            // Товары для дома
-            { id: 9, name: 'Стиральный порошок', price: 1200, category: 'household', emoji: '🧴' },
-            { id: 10, name: 'Туалетная бумага 8рул', price: 1350, category: 'household', emoji: '🧻' },
-            { id: 11, name: 'Средство для мытья посуды', price: 380, category: 'household', emoji: '🧽' },
-            { id: 12, name: 'Мусорные пакеты 30шт', price: 520, category: 'household', emoji: '🗑️' },
-            { id: 13, name: 'Освежитель воздуха', price: 780, category: 'household', emoji: '💨' },
-            { id: 14, name: 'Губки для посуды 5шт', price: 280, category: 'household', emoji: '🧹' },
-            
-            // Напитки
-            { id: 15, name: 'Кока-кола 1.5л', price: 420, category: 'drinks', emoji: '🥤' },
-            { id: 16, name: 'Сок апельсиновый 1л', price: 380, category: 'drinks', emoji: '🍊' },
-            { id: 17, name: 'Вода питьевая 5л', price: 320, category: 'drinks', emoji: '💧' },
-            { id: 18, name: 'Чай черный 100г', price: 780, category: 'drinks', emoji: '🍵' },
-            { id: 19, name: 'Кофе растворимый 200г', price: 1800, category: 'drinks', emoji: '☕' },
-            { id: 20, name: 'Энергетик 0.5л', price: 520, category: 'drinks', emoji: '⚡' }
-        ];
+        const products = {
+            // Овощи
+            vegetables: [
+                { id: 1, name: 'Огурцы', price: 450, unit: 'кг', emoji: '🥒', isWeight: true },
+                { id: 2, name: 'Помидоры', price: 580, unit: 'кг', emoji: '🍅', isWeight: true },
+                { id: 3, name: 'Картофель', price: 220, unit: 'кг', emoji: '🥔', isWeight: true },
+                { id: 4, name: 'Лук репчатый', price: 180, unit: 'кг', emoji: '🧅', isWeight: true },
+                { id: 5, name: 'Морковь', price: 190, unit: 'кг', emoji: '🥕', isWeight: true },
+                { id: 6, name: 'Капуста', price: 150, unit: 'кг', emoji: '🥬', isWeight: true }
+            ],
+            // Фрукты
+            fruits: [
+                { id: 7, name: 'Яблоки', price: 320, unit: 'кг', emoji: '🍎', isWeight: true },
+                { id: 8, name: 'Бананы', price: 280, unit: 'кг', emoji: '🍌', isWeight: true },
+                { id: 9, name: 'Апельсины', price: 420, unit: 'кг', emoji: '🍊', isWeight: true },
+                { id: 10, name: 'Клубника', price: 890, unit: 'кг', emoji: '🍓', isWeight: true }
+            ],
+            // Мясо
+            meat: [
+                { id: 11, name: 'Говядина', price: 2800, unit: 'кг', emoji: '🥩', isWeight: true },
+                { id: 12, name: 'Курица', price: 1200, unit: 'кг', emoji: '🍗', isWeight: true },
+                { id: 13, name: 'Свинина', price: 1900, unit: 'кг', emoji: '🐷', isWeight: true }
+            ],
+            // Молочные продукты
+            dairy: [
+                { id: 14, name: 'Молоко', price: 320, unit: '1л', emoji: '🥛', isWeight: false },
+                { id: 15, name: 'Сыр', price: 1400, unit: 'кг', emoji: '🧀', isWeight: true },
+                { id: 16, name: 'Йогурт', price: 180, unit: 'шт', emoji: '🍶', isWeight: false },
+                { id: 17, name: 'Сметана', price: 280, unit: '500гр', emoji: '🥄', isWeight: false }
+            ],
+            // Бакалея
+            groceries: [
+                { id: 18, name: 'Рис', price: 420, unit: '1кг', emoji: '🍚', isWeight: false },
+                { id: 19, name: 'Макароны', price: 280, unit: '500гр', emoji: '🍝', isWeight: false },
+                { id: 20, name: 'Сахар', price: 220, unit: '1кг', emoji: '🍬', isWeight: false }
+            ]
+        };
 
         let cart = [];
-        let currentCategory = 'all';
+        let currentMainCategory = '';
+        let currentSubcategory = '';
 
         // Ваш номер WhatsApp
-        const whatsappNumber = '77057782277'; // Ваш рабочий номер
+        const whatsappNumber = '77057782277';
 
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            const filteredProducts = currentCategory === 'all' 
-                ? products 
-                : products.filter(p => p.category === currentCategory);
+        // Функции для работы с localStorage
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
 
-            grid.innerHTML = filteredProducts.map(product => `
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartCount();
+            }
+        }
+
+        // Навигация по категориям
+        function showMainCategories() {
+            document.getElementById('mainCategories').classList.remove('hidden');
+            document.getElementById('subcategoriesSection').classList.add('hidden');
+            document.getElementById('productsSection').classList.add('hidden');
+        }
+
+        function showSubcategories(mainCategory) {
+            currentMainCategory = mainCategory;
+            const subcategoriesGrid = document.getElementById('subcategoriesGrid');
+            const category = categories[mainCategory];
+            
+            subcategoriesGrid.innerHTML = '';
+            for (const [key, subcategory] of Object.entries(category.subcategories)) {
+                subcategoriesGrid.innerHTML += `
+                    <div class="category-card" onclick="showProducts('${key}')">
+                        <div class="category-icon">${subcategory.emoji}</div>
+                        <div class="category-name">${subcategory.name}</div>
+                        <div class="category-desc">Товары этой категории</div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('mainCategories').classList.add('hidden');
+            document.getElementById('subcategoriesSection').classList.remove('hidden');
+            document.getElementById('productsSection').classList.add('hidden');
+        }
+
+        function showProducts(subcategory) {
+            currentSubcategory = subcategory;
+            const productsGrid = document.getElementById('productsGrid');
+            const categoryProducts = products[subcategory] || [];
+            
+            productsGrid.innerHTML = categoryProducts.map(product => `
                 <div class="product-card">
                     <div class="product-image">${product.emoji}</div>
                     <div class="product-name">${product.name}</div>
-                    <div class="product-price">${product.price} ₸</div>
+                    <div class="product-price">${product.price} ₸/${product.unit}</div>
+                    ${product.isWeight ? `
+                        <input type="number" class="weight-input" id="weight-${product.id}" 
+                               placeholder="Введите вес в ${product.unit}" step="0.1" min="0.1" value="1">
+                        <div class="weight-unit">Введите вес в ${product.unit}</div>
+                    ` : ''}
                     <button class="add-to-cart" onclick="addToCart(${product.id})">
                         Добавить в корзину
                     </button>
                 </div>
             `).join('');
+            
+            document.getElementById('subcategoriesSection').classList.add('hidden');
+            document.getElementById('productsSection').classList.remove('hidden');
         }
 
-        function filterProducts(category) {
-            currentCategory = category;
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm.length < 2) return;
             
-            // Обновляем активную кнопку
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+            // Ищем во всех товарах
+            let allProducts = [];
+            for (const subcategory in products) {
+                allProducts = allProducts.concat(products[subcategory]);
+            }
             
-            renderProducts();
+            const filteredProducts = allProducts.filter(product => 
+                product.name.toLowerCase().includes(searchTerm)
+            );
+            
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card">
+                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">${product.price} ₸/${product.unit}</div>
+                    ${product.isWeight ? `
+                        <input type="number" class="weight-input" id="weight-${product.id}" 
+                               placeholder="Введите вес в ${product.unit}" step="0.1" min="0.1" value="1">
+                        <div class="weight-unit">Введите вес в ${product.unit}</div>
+                    ` : ''}
+                    <button class="add-to-cart" onclick="addToCart(${product.id})">
+                        Добавить в корзину
+                    </button>
+                </div>
+            `).join('');
+            
+            // Показываем секцию с товарами
+            document.getElementById('mainCategories').classList.add('hidden');
+            document.getElementById('subcategoriesSection').classList.add('hidden');
+            document.getElementById('productsSection').classList.remove('hidden');
         }
 
         function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const existingItem = cart.find(item => item.id === productId);
+            // Находим товар во всех подкатегориях
+            let product = null;
+            for (const subcategory in products) {
+                product = products[subcategory].find(p => p.id === productId);
+                if (product) break;
+            }
+            
+            if (!product) return;
+            
+            let weight = 1;
+            if (product.isWeight) {
+                const weightInput = document.getElementById(`weight-${product.id}`);
+                weight = parseFloat(weightInput.value) || 1;
+                if (weight <= 0) {
+                    showNotification('Введите корректный вес', 'error');
+                    return;
+                }
+            }
+            
+            const totalPrice = Math.round(product.price * weight * 100) / 100;
+            
+            const existingItem = cart.find(item => 
+                item.id === productId && item.weight === weight
+            );
             
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
-                cart.push({ ...product, quantity: 1 });
+                cart.push({ 
+                    ...product, 
+                    quantity: 1,
+                    weight: weight,
+                    totalPrice: totalPrice
+                });
             }
             
             updateCartCount();
+            saveCart();
             
             // Анимация добавления
-            event.target.style.transform = 'scale(0.95)';
+            const button = event.target;
+            button.textContent = '✅ Добавлено!';
+            button.style.background = '#27ae60';
             setTimeout(() => {
-                event.target.style.transform = 'scale(1)';
-            }, 150);
+                button.textContent = 'Добавить в корзину';
+                button.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+            }, 1000);
         }
 
         function updateCartCount() {
@@ -541,55 +843,102 @@
                 <div class="cart-item">
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.emoji} ${item.name}</div>
-                        <div class="cart-item-price">${item.price} ₸ за шт.</div>
+                        ${item.isWeight ? `
+                            <div class="cart-item-weight">${item.weight} ${item.unit}</div>
+                        ` : ''}
+                        <div class="cart-item-price">${item.totalPrice} ₸</div>
                     </div>
                     <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, ${item.weight}, -1)">-</button>
                         <span>${item.quantity}</span>
-                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, ${item.weight}, 1)">+</button>
                     </div>
-                    <button class="remove-item" onclick="removeFromCart(${item.id})">Удалить</button>
+                    <button class="remove-item" onclick="removeFromCart(${item.id}, ${item.weight})">Удалить</button>
                 </div>
             `).join('');
 
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = cart.reduce((sum, item) => sum + (item.totalPrice * item.quantity), 0);
             document.getElementById('cartTotal').textContent = `Итого: ${total} ₸`;
         }
 
-        function changeQuantity(productId, change) {
-            const item = cart.find(item => item.id === productId);
+        function changeQuantity(productId, weight, change) {
+            const item = cart.find(item => item.id === productId && item.weight === weight);
             if (item) {
                 item.quantity += change;
                 if (item.quantity <= 0) {
-                    removeFromCart(productId);
+                    removeFromCart(productId, weight);
                 } else {
                     renderCartItems();
                     updateCartCount();
+                    saveCart();
                 }
             }
         }
 
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            renderCartItems();
-            updateCartCount();
+        function removeFromCart(productId, weight) {
+            if (confirm('Удалить товар из корзины?')) {
+                cart = cart.filter(item => !(item.id === productId && item.weight === weight));
+                renderCartItems();
+                updateCartCount();
+                saveCart();
+            }
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 10px;
+                color: white;
+                font-weight: bold;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                background: ${type === 'error' ? '#ff4757' : '#27ae60'};
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function clearForm() {
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerPhone').value = '';
+            document.getElementById('customerAddress').value = '';
         }
 
         function sendToWhatsApp() {
-            const name = document.getElementById('customerName').value;
-            const phone = document.getElementById('customerPhone').value;
-            const address = document.getElementById('customerAddress').value;
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const address = document.getElementById('customerAddress').value.trim();
 
+            // Валидация
             if (!name || !phone || !address) {
-                alert('Пожалуйста, заполните все поля');
+                showNotification('Пожалуйста, заполните все поля', 'error');
+                return;
+            }
+
+            // Валидация телефона
+            const phoneRegex = /^[\+]?[7-8]?[0-9\s\-\(\)]{10,}$/;
+            if (!phoneRegex.test(phone)) {
+                showNotification('Введите корректный номер телефона', 'error');
                 return;
             }
 
             if (cart.length === 0) {
-                alert('Ваша корзина пуста');
+                showNotification('Ваша корзина пуста', 'error');
                 return;
             }
 
+            // Формирование сообщения
             let message = `🛒 *НОВЫЙ ЗАКАЗ*\n\n`;
             message += `👤 *Клиент:* ${name}\n`;
             message += `📞 *Телефон:* ${phone}\n`;
@@ -597,20 +946,28 @@
             message += `📋 *Заказ:*\n`;
             
             cart.forEach(item => {
-                message += `${item.emoji} ${item.name} - ${item.quantity}шт × ${item.price}₸ = ${item.quantity * item.price}₸\n`;
+                if (item.isWeight) {
+                    message += `${item.emoji} ${item.name} - ${item.weight}${item.unit} × ${item.quantity}шт = ${item.totalPrice * item.quantity}₸\n`;
+                } else {
+                    message += `${item.emoji} ${item.name} - ${item.quantity}шт × ${item.price}₸ = ${item.totalPrice * item.quantity}₸\n`;
+                }
             });
 
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const total = cart.reduce((sum, item) => sum + (item.totalPrice * item.quantity), 0);
             message += `\n💰 *ИТОГО: ${total}₸*`;
 
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
             
-            // Очищаем корзину после отправки
+            // Показываем уведомление об успехе
+            showNotification('Заказ отправлен! Спасибо за покупку!', 'success');
+            
+            // Очищаем корзину и форму
             cart = [];
             updateCartCount();
             closeCart();
-            alert('Заказ отправлен! Спасибо за покупку!');
+            clearForm();
+            saveCart();
         }
 
         // Закрытие модального окна при клике вне его
@@ -622,7 +979,7 @@
         }
 
         // Инициализация
-        renderProducts();
+        loadCart();
     </script>
 </body>
 </html>
