@@ -3,8 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дом & магазин</title>
+    <meta name="description" content="Интернет-магазин Дом Еда - свежие продукты, овощи, фрукты, молочные товары с доставкой на дом">
+    <meta name="keywords" content="продукты, доставка, овощи, фрукты, молочные продукты, интернет-магазин, Казахстан">
+    <meta name="author" content="Дом Еда">
+    <meta property="og:title" content="Дом Еда - Интернет-магазин продуктов">
+    <meta property="og:description" content="Свежие продукты с доставкой на дом">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1542838688-5d3c9001c2d7?w=1200&h=630&fit=crop">
+    <title>Дом Еда - Интернет-магазин свежих продуктов с доставкой</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(45deg, #667eea, #764ba2);
+            --success-color: #27ae60;
+            --danger-color: #ff4757;
+            --warning-color: #ff6b35;
+            --whatsapp-color: #25d366;
+            --text-primary: #2c3e50;
+            --text-secondary: #666;
+            --text-muted: #999;
+            --bg-white: rgba(255, 255, 255, 0.95);
+            --bg-light: #f8f9fa;
+            --border-color: #ddd;
+            --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.2);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+            --border-radius: 15px;
+            --border-radius-large: 20px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,9 +46,29 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #ffd700, #ff6b35, #8e44ad, #3498db);
+            background-size: 400% 400%;
+            animation: rainbowGradient 15s ease infinite;
             min-height: 100vh;
+        }
+
+        @keyframes rainbowGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 50% 25%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            75% {
+                background-position: 50% 75%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container {
@@ -26,12 +78,12 @@
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-white);
             backdrop-filter: blur(10px);
             padding: 1rem 0;
             margin-bottom: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
         }
 
         .header-content {
@@ -49,7 +101,7 @@
         }
 
         .cart-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: var(--secondary-gradient);
             color: white;
             border: none;
             padding: 12px 20px;
@@ -58,7 +110,7 @@
             font-size: 1rem;
             position: relative;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .cart-btn:hover {
@@ -70,7 +122,7 @@
             position: absolute;
             top: -8px;
             right: -8px;
-            background: #ff4757;
+            background: var(--danger-color);
             color: white;
             border-radius: 50%;
             width: 24px;
@@ -93,10 +145,10 @@
             padding: 12px 20px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 25px;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--bg-white);
             font-size: 1rem;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .search-input:focus {
@@ -114,20 +166,20 @@
         }
 
         .category-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-white);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: var(--border-radius-large);
             padding: 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-light);
         }
 
         .category-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-medium);
         }
 
         .category-icon {
@@ -138,12 +190,12 @@
         .category-name {
             font-size: 1.3rem;
             font-weight: bold;
-            color: #2c3e50;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
         .category-desc {
-            color: #666;
+            color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
@@ -155,13 +207,13 @@
             padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             font-weight: 500;
             margin-bottom: 2rem;
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--bg-white);
             color: #764ba2;
             transform: translateY(-2px);
         }
@@ -174,18 +226,18 @@
         }
 
         .product-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-white);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: var(--border-radius-large);
             padding: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-medium);
         }
 
         .product-image {
@@ -196,20 +248,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
             margin-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-emoji {
+            font-size: 3rem;
         }
 
         .product-name {
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
 
         .product-price {
             font-size: 1.2rem;
-            color: #27ae60;
+            color: var(--success-color);
             margin-bottom: 1rem;
             font-weight: bold;
         }
@@ -217,7 +285,7 @@
         .weight-input {
             width: 100%;
             padding: 10px;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             margin-bottom: 1rem;
             font-size: 1rem;
@@ -231,14 +299,14 @@
 
         .weight-unit {
             text-align: center;
-            color: #666;
+            color: var(--text-secondary);
             margin-bottom: 1rem;
             font-size: 0.9rem;
         }
 
         .add-to-cart {
             width: 100%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: var(--secondary-gradient);
             color: white;
             border: none;
             padding: 12px;
@@ -246,7 +314,7 @@
             cursor: pointer;
             font-size: 1rem;
             font-weight: bold;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .add-to-cart:hover {
@@ -273,12 +341,12 @@
             transform: translate(-50%, -50%);
             background: white;
             padding: 2rem;
-            border-radius: 20px;
+            border-radius: var(--border-radius-large);
             width: 90%;
             max-width: 600px;
             max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow-heavy);
         }
 
         .cart-header {
@@ -295,12 +363,12 @@
             border: none;
             font-size: 2rem;
             cursor: pointer;
-            color: #999;
+            color: var(--text-muted);
             transition: color 0.3s ease;
         }
 
         .close-cart:hover {
-            color: #ff4757;
+            color: var(--danger-color);
         }
 
         .cart-item {
@@ -322,12 +390,12 @@
 
         .cart-item-weight {
             font-size: 0.9rem;
-            color: #666;
+            color: var(--text-secondary);
             margin-bottom: 0.3rem;
         }
 
         .cart-item-price {
-            color: #27ae60;
+            color: var(--success-color);
             font-weight: bold;
         }
 
@@ -357,13 +425,13 @@
         }
 
         .remove-item {
-            background: #ff4757;
+            background: var(--danger-color);
             color: white;
             border: none;
             padding: 8px 12px;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .remove-item:hover {
@@ -376,16 +444,16 @@
             margin: 2rem 0;
             font-size: 1.5rem;
             font-weight: bold;
-            color: #2c3e50;
+            color: var(--text-primary);
             padding: 1rem;
-            background: #f8f9fa;
+            background: var(--bg-light);
             border-radius: 15px;
         }
 
         .whatsapp-form {
             margin-top: 2rem;
             padding: 1.5rem;
-            background: #f8f9fa;
+            background: var(--bg-light);
             border-radius: 15px;
         }
 
@@ -402,7 +470,7 @@
         .form-group input {
             width: 100%;
             padding: 10px;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 10px;
             font-size: 1rem;
             transition: border-color 0.3s ease;
@@ -413,9 +481,19 @@
             border-color: #667eea;
         }
 
+        .form-group input.error {
+            border-color: var(--danger-color);
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
         .send-order {
             width: 100%;
-            background: #25d366;
+            background: var(--whatsapp-color);
             color: white;
             border: none;
             padding: 15px;
@@ -423,7 +501,7 @@
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             margin-top: 1rem;
         }
 
@@ -433,14 +511,46 @@
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
 
+        .send-order:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .empty-cart {
             text-align: center;
             padding: 2rem;
-            color: #999;
+            color: var(--text-muted);
         }
 
         .hidden {
             display: none;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .notification.success {
+            background: var(--success-color);
+        }
+
+        .notification.error {
+            background: var(--danger-color);
+        }
+
+        .notification.warning {
+            background: var(--warning-color);
         }
 
         @keyframes slideIn {
@@ -494,189 +604,311 @@
         <header>
             <div class="header-content">
                 <div class="logo">🏠 Дом Еда</div>
-                <button class="cart-btn" onclick="openCart()">
-                    🛒 Корзина
-                    <span class="cart-count" id="cartCount">0</span>
+                <button class="cart-btn" onclick="openCart()" aria-label="Открыть корзину">
+                    🛒 Корзина (<span id="cartCount">0</span>)
                 </button>
             </div>
         </header>
 
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="🔍 Поиск товаров..." 
-                   onkeyup="searchProducts()" class="search-input">
-        </div>
+        <main>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск товаров..." oninput="searchProducts()" aria-label="Поиск товаров">
+            </div>
 
-        <!-- Основные категории -->
-        <div class="categories" id="mainCategories">
-            <div class="category-card" onclick="showSubcategories('food')">
-                <div class="category-icon">🍎</div>
-                <div class="category-name">Продукты питания</div>
-                <div class="category-desc">Овощи, фрукты, мясо, молочные продукты</div>
-            </div>
-            <div class="category-card" onclick="showSubcategories('household')">
-                <div class="category-icon">🏠</div>
-                <div class="category-name">Товары для дома</div>
-                <div class="category-desc">Бытовая химия, хозяйственные товары</div>
-            </div>
-            <div class="category-card" onclick="showSubcategories('drinks')">
-                <div class="category-icon">🥤</div>
-                <div class="category-name">Напитки</div>
-                <div class="category-desc">Соки, воды, чай, кофе</div>
-            </div>
-            <div class="category-card" onclick="showSubcategories('bakery')">
-                <div class="category-icon">🥖</div>
-                <div class="category-name">Выпечка</div>
-                <div class="category-desc">Хлеб, булочки, кондитерские изделия</div>
-            </div>
-        </div>
+            <!-- Основные категории -->
+            <section id="mainCategories">
+                <div class="categories" id="categoriesGrid">
+                    <!-- Категории будут добавлены через JavaScript -->
+                </div>
+            </section>
 
-        <!-- Подкатегории продуктов -->
-        <div class="hidden" id="subcategoriesSection">
-            <button class="back-btn" onclick="showMainCategories()">← Назад к категориям</button>
-            <div class="categories" id="subcategoriesGrid">
-                <!-- Подкатегории будут загружены через JavaScript -->
-            </div>
-        </div>
+            <!-- Подкатегории -->
+            <section id="subcategoriesSection" class="hidden">
+                <button class="back-btn" onclick="showMainCategories()">← Назад к категориям</button>
+                <div class="categories" id="subcategoriesGrid">
+                    <!-- Подкатегории будут добавлены через JavaScript -->
+                </div>
+            </section>
 
-        <!-- Товары -->
-        <div class="hidden" id="productsSection">
-            <button class="back-btn" onclick="showSubcategories(currentMainCategory)">← Назад к подкатегориям</button>
-            <div class="products-grid" id="productsGrid">
-                <!-- Товары будут добавлены через JavaScript -->
-            </div>
-        </div>
+            <!-- Товары -->
+            <section id="productsSection" class="hidden">
+                <button class="back-btn" onclick="showSubcategories(currentMainCategory)">← Назад</button>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Товары будут добавлены через JavaScript -->
+                </div>
+            </section>
+        </main>
     </div>
 
     <!-- Модальное окно корзины -->
-    <div class="cart-modal" id="cartModal">
+    <div id="cartModal" class="cart-modal" aria-hidden="true">
         <div class="cart-content">
             <div class="cart-header">
                 <h2>🛒 Ваша корзина</h2>
-                <button class="close-cart" onclick="closeCart()">&times;</button>
+                <button class="close-cart" onclick="closeCart()" aria-label="Закрыть корзину">&times;</button>
             </div>
-            <div id="cartItems"></div>
+            <div id="cartItems">
+                <!-- Товары корзины будут добавлены через JavaScript -->
+            </div>
             <div class="cart-total" id="cartTotal">Итого: 0 ₸</div>
-            
-            <div class="whatsapp-form">
-                <h3>📱 Оформить заказ</h3>
+            <form class="whatsapp-form" id="orderForm" onsubmit="sendToWhatsApp(event)">
                 <div class="form-group">
-                    <label for="customerName">Ваше имя:</label>
-                    <input type="text" id="customerName" placeholder="Введите ваше имя" required>
+                    <label for="customerName">Ваше имя *</label>
+                    <input type="text" id="customerName" required placeholder="Введите ваше имя">
+                    <div class="error-message" id="nameError"></div>
                 </div>
                 <div class="form-group">
-                    <label for="customerPhone">Телефон:</label>
-                    <input type="tel" id="customerPhone" placeholder="+7 (999) 123-45-67" required>
+                    <label for="customerPhone">Телефон *</label>
+                    <input type="tel" id="customerPhone" required placeholder="+7 (XXX) XXX-XX-XX">
+                    <div class="error-message" id="phoneError"></div>
                 </div>
                 <div class="form-group">
-                    <label for="customerAddress">Адрес доставки:</label>
-                    <input type="text" id="customerAddress" placeholder="Улица, дом, квартира" required>
+                    <label for="customerAddress">Адрес доставки *</label>
+                    <input type="text" id="customerAddress" required placeholder="Улица, дом, квартира">
+                    <div class="error-message" id="addressError"></div>
                 </div>
-                <button class="send-order" onclick="sendToWhatsApp()">
+                <button type="submit" class="send-order">
                     📱 Отправить заказ в WhatsApp
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 
     <script>
-        // Структура данных
+        // Расширенная база данных товаров
+        const products = {
+            // Овощи
+            fresh_vegetables: [
+                { id: 1, name: "Помидоры свежие", price: 850, unit: "кг", emoji: "🍅", isWeight: true, image: "" },
+                { id: 2, name: "Огурцы свежие", price: 650, unit: "кг", emoji: "🥒", isWeight: true, image: "" },
+                { id: 3, name: "Морковь", price: 350, unit: "кг", emoji: "🥕", isWeight: true, image: "" },
+                { id: 4, name: "Картофель", price: 280, unit: "кг", emoji: "🥔", isWeight: true, image: "" },
+                { id: 5, name: "Капуста белокочанная", price: 450, unit: "кг", emoji: "🥬", isWeight: true, image: "" },
+                { id: 6, name: "Лук репчатый", price: 320, unit: "кг", emoji: "🧅", isWeight: true, image: "" },
+                { id: 7, name: "Болгарский перец", price: 1200, unit: "кг", emoji: "🫑", isWeight: true, image: "" },
+                { id: 8, name: "Баклажаны", price: 980, unit: "кг", emoji: "🍆", isWeight: true, image: "" },
+                { id: 9, name: "Кабачки", price: 750, unit: "кг", emoji: "🥒", isWeight: true, image: "" },
+                { id: 10, name: "Чеснок", price: 2800, unit: "кг", emoji: "🧄", isWeight: true, image: "" },
+                { id: 11, name: "Свекла", price: 380, unit: "кг", emoji: "🍑", isWeight: true, image: "" },
+                { id: 12, name: "Редис", price: 850, unit: "кг", emoji: "🌶️", isWeight: true, image: "" }
+            ],
+            greens_herbs: [
+                { id: 13, name: "Укроп свежий", price: 450, unit: "пучок", emoji: "🌿", isWeight: false, image: "" },
+                { id: 14, name: "Петрушка", price: 450, unit: "пучок", emoji: "🌿", isWeight: false, image: "" },
+                { id: 15, name: "Салат листовой", price: 650, unit: "шт", emoji: "🥬", isWeight: false, image: "" },
+                { id: 16, name: "Кинза", price: 450, unit: "пучок", emoji: "🌿", isWeight: false, image: "" },
+                { id: 17, name: "Зеленый лук", price: 380, unit: "пучок", emoji: "🌱", isWeight: false, image: "" },
+                { id: 18, name: "Шпинат", price: 750, unit: "пучок", emoji: "🥬", isWeight: false, image: "" }
+            ],
+            
+            // Фрукты
+            fresh_fruits: [
+                { id: 19, name: "Яблоки", price: 680, unit: "кг", emoji: "🍎", isWeight: true, image: "" },
+                { id: 20, name: "Бананы", price: 850, unit: "кг", emoji: "🍌", isWeight: true, image: "" },
+                { id: 21, name: "Апельсины", price: 950, unit: "кг", emoji: "🍊", isWeight: true, image: "" },
+                { id: 22, name: "Лимоны", price: 1200, unit: "кг", emoji: "🍋", isWeight: true, image: "" },
+                { id: 23, name: "Груши", price: 1100, unit: "кг", emoji: "🍐", isWeight: true, image: "" },
+                { id: 24, name: "Мандарины", price: 1350, unit: "кг", emoji: "🍊", isWeight: true, image: "" },
+                { id: 25, name: "Киви", price: 1450, unit: "кг", emoji: "🥝", isWeight: true, image: "" },
+                { id: 26, name: "Ананас", price: 2800, unit: "шт", emoji: "🍍", isWeight: false, image: "" },
+                { id: 27, name: "Гранат", price: 2200, unit: "шт", emoji: "🍎", isWeight: false, image: "" },
+                { id: 28, name: "Персики", price: 1850, unit: "кг", emoji: "🍑", isWeight: true, image: "" },
+                { id: 29, name: "Нектарины", price: 1750, unit: "кг", emoji: "🍑", isWeight: true, image: "" },
+                { id: 30, name: "Сливы", price: 1250, unit: "кг", emoji: "🍑", isWeight: true, image: "" }
+            ],
+            berries: [
+                { id: 31, name: "Клубника свежая", price: 3500, unit: "кг", emoji: "🍓", isWeight: true, image: "" },
+                { id: 32, name: "Малина", price: 4200, unit: "кг", emoji: "🍓", isWeight: true, image: "" },
+                { id: 33, name: "Черника", price: 5500, unit: "кг", emoji: "🫐", isWeight: true, image: "" },
+                { id: 34, name: "Виноград", price: 1450, unit: "кг", emoji: "🍇", isWeight: true, image: "" },
+                { id: 35, name: "Смородина", price: 2800, unit: "кг", emoji: "🫐", isWeight: true, image: "" },
+                { id: 36, name: "Крыжовник", price: 2200, unit: "кг", emoji: "🫐", isWeight: true, image: "" }
+            ],
+            
+            // Мясо
+            meat_poultry: [
+                { id: 37, name: "Курица филе", price: 2800, unit: "кг", emoji: "🍗", isWeight: true, image: "" },
+                { id: 38, name: "Курица ножки", price: 1200, unit: "кг", emoji: "🍗", isWeight: true, image: "" },
+                { id: 39, name: "Говядина", price: 4800, unit: "кг", emoji: "🥩", isWeight: true, image: "" },
+                { id: 40, name: "Свинина", price: 3200, unit: "кг", emoji: "🥩", isWeight: true, image: "" },
+                { id: 41, name: "Индейка филе", price: 3500, unit: "кг", emoji: "🦃", isWeight: true, image: "" },
+                { id: 42, name: "Курица целиком", price: 2200, unit: "кг", emoji: "🍗", isWeight: true, image: "" },
+                { id: 43, name: "Говяжий фарш", price: 3800, unit: "кг", emoji: "🥩", isWeight: true, image: "" },
+                { id: 44, name: "Свинной фарш", price: 2800, unit: "кг", emoji: "🥩", isWeight: true, image: "" }
+            ],
+            sausages: [
+                { id: 45, name: "Сосиски молочные", price: 3200, unit: "кг", emoji: "🌭", isWeight: true, image: "" },
+                { id: 46, name: "Колбаса докторская", price: 4500, unit: "кг", emoji: "🌭", isWeight: true, image: "" },
+                { id: 47, name: "Сервелат", price: 5500, unit: "кг", emoji: "🥓", isWeight: true, image: "" },
+                { id: 48, name: "Курные сосиски", price: 2800, unit: "кг", emoji: "🌭", isWeight: true, image: "" }
+            ],
+            
+            // Молочные продукты
+            dairy_milk: [
+                { id: 49, name: "Молоко 3.2%", price: 450, unit: "л", emoji: "🥛", isWeight: false, image: "" },
+                { id: 50, name: "Кефир 2.5%", price: 420, unit: "л", emoji: "🥛", isWeight: false, image: "" },
+                { id: 51, name: "Сметана 20%", price: 680, unit: "кг", emoji: "🥛", isWeight: true, image: "" },
+                { id: 52, name: "Творог 5%", price: 2800, unit: "кг", emoji: "🧈", isWeight: true, image: "" },
+                { id: 53, name: "Сыр российский", price: 4800, unit: "кг", emoji: "🧀", isWeight: true, image: "" },
+                { id: 54, name: "Масло сливочное", price: 2200, unit: "кг", emoji: "🧈", isWeight: true, image: "" },
+                { id: 55, name: "Ряженка", price: 450, unit: "л", emoji: "🥛", isWeight: false, image: "" },
+                { id: 56, name: "Йогурт натуральный", price: 550, unit: "шт", emoji: "🥛", isWeight: false, image: "" }
+            ],
+            cheese_eggs: [
+                { id: 57, name: "Яйца куриные", price: 520, unit: "десяток", emoji: "🥚", isWeight: false, image: "" },
+                { id: 58, name: "Сыр голландский", price: 5200, unit: "кг", emoji: "🧀", isWeight: true, image: "" },
+                { id: 59, name: "Сыр пармезан", price: 8500, unit: "кг", emoji: "🧀", isWeight: true, image: "" },
+                { id: 60, name: "Сыр моцарелла", price: 6800, unit: "кг", emoji: "🧀", isWeight: true, image: "" },
+                { id: 61, name: "Творожный сыр", price: 3200, unit: "кг", emoji: "🧀", isWeight: true, image: "" }
+            ],
+            
+            // Хлебобулочные изделия
+            bread_bakery: [
+                { id: 62, name: "Хлеб белый", price: 250, unit: "шт", emoji: "🍞", isWeight: false, image: "" },
+                { id: 63, name: "Хлеб черный", price: 280, unit: "шт", emoji: "🍞", isWeight: false, image: "" },
+                { id: 64, name: "Батон", price: 220, unit: "шт", emoji: "🥖", isWeight: false, image: "" },
+                { id: 65, name: "Лаваш", price: 320, unit: "шт", emoji: "🫓", isWeight: false, image: "" },
+                { id: 66, name: "Сушки", price: 850, unit: "кг", emoji: "🍪", isWeight: true, image: "" }
+            ],
+            
+            // Крупы и макароны
+            grains_pasta: [
+                { id: 67, name: "Рис", price: 650, unit: "кг", emoji: "🍚", isWeight: true, image: "" },
+                { id: 68, name: "Гречка", price: 850, unit: "кг", emoji: "🍚", isWeight: true, image: "" },
+                { id: 69, name: "Макароны", price: 550, unit: "кг", emoji: "🍝", isWeight: true, image: "" },
+                { id: 70, name: "Овсянка", price: 450, unit: "кг", emoji: "🥣", isWeight: true, image: "" },
+                { id: 71, name: "Манка", price: 380, unit: "кг", emoji: "🥣", isWeight: true, image: "" },
+                { id: 72, name: "Пшено", price: 320, unit: "кг", emoji: "🥣", isWeight: true, image: "" }
+            ],
+            
+            // Напитки
+            beverages: [
+                { id: 73, name: "Вода минеральная", price: 180, unit: "л", emoji: "💧", isWeight: false, image: "" },
+                { id: 74, name: "Сок апельсиновый", price: 650, unit: "л", emoji: "🧃", isWeight: false, image: "" },
+                { id: 75, name: "Сок яблочный", price: 550, unit: "л", emoji: "🧃", isWeight: false, image: "" },
+                { id: 76, name: "Чай черный", price: 1200, unit: "пачка", emoji: "🍵", isWeight: false, image: "" },
+                { id: 77, name: "Кофе растворимый", price: 1800, unit: "банка", emoji: "☕", isWeight: false, image: "" }
+            ],
+            
+            // Снеки и сладости
+            snacks_sweets: [
+                { id: 78, name: "Чипсы", price: 850, unit: "пачка", emoji: "🍟", isWeight: false, image: "" },
+                { id: 79, name: "Шоколад молочный", price: 650, unit: "плитка", emoji: "🍫", isWeight: false, image: "" },
+                { id: 80, name: "Конфеты ассорти", price: 2800, unit: "кг", emoji: "🍬", isWeight: true, image: "" },
+                { id: 81, name: "Печенье", price: 950, unit: "пачка", emoji: "🍪", isWeight: false, image: "" }
+            ]
+        };
+
         const categories = {
-            food: {
-                name: "Продукты питания",
+            vegetables: {
+                name: "Овощи",
+                emoji: "🥬",
                 subcategories: {
-                    vegetables: { name: "🥬 Овощи", emoji: "🥬" },
-                    fruits: { name: "🍓 Фрукты", emoji: "🍓" },
-                    meat: { name: "🥩 Мясо", emoji: "🥩" },
-                    dairy: { name: "🥛 Молочные продукты", emoji: "🥛" },
-                    groceries: { name: "🍚 Бакалея", emoji: "🍚" }
+                    fresh_vegetables: { name: "Свежие овощи", emoji: "🥕" },
+                    greens_herbs: { name: "Зелень и травы", emoji: "🌿" }
                 }
             },
-            household: {
-                name: "Товары для дома",
+            fruits: {
+                name: "Фрукты",
+                emoji: "🍎",
                 subcategories: {
-                    cleaning: { name: "🧹 Уборка", emoji: "🧹" },
-                    hygiene: { name: "🧴 Гигиена", emoji: "🧴" },
-                    kitchen: { name: "🍴 Кухня", emoji: "🍴" }
+                    fresh_fruits: { name: "Свежие фрукты", emoji: "🍊" },
+                    berries: { name: "Ягоды", emoji: "🍓" }
                 }
             },
-            drinks: {
-                name: "Напитки",
+            meat: {
+                name: "Мясо",
+                emoji: "🥩",
                 subcategories: {
-                    juices: { name: "🍹 Соки", emoji: "🍹" },
-                    water: { name: "💧 Вода", emoji: "💧" },
-                    hot_drinks: { name: "☕ Горячие напитки", emoji: "☕" }
+                    meat_poultry: { name: "Мясо и птица", emoji: "🍗" },
+                    sausages: { name: "Колбасы и сосиски", emoji: "🌭" }
+                }
+            },
+            dairy: {
+                name: "Молочные продукты",
+                emoji: "🥛",
+                subcategories: {
+                    dairy_milk: { name: "Молочные продукты", emoji: "🥛" },
+                    cheese_eggs: { name: "Сыры и яйца", emoji: "🧀" }
                 }
             },
             bakery: {
-                name: "Выпечка",
+                name: "Хлебобулочные изделия",
+                emoji: "🍞",
                 subcategories: {
-                    bread: { name: "🥖 Хлеб", emoji: "🥖" },
-                    pastries: { name: "🥐 Выпечка", emoji: "🥐" },
-                    sweets: { name: "🍰 Кондитерские изделия", emoji: "🍰" }
+                    bread_bakery: { name: "Хлеб и выпечка", emoji: "🥖" }
+                }
+            },
+            grains: {
+                name: "Крупы и макароны",
+                emoji: "🍚",
+                subcategories: {
+                    grains_pasta: { name: "Крупы и паста", emoji: "🍝" }
+                }
+            },
+            beverages: {
+                name: "Напитки",
+                emoji: "🧃",
+                subcategories: {
+                    beverages: { name: "Напитки", emoji: "💧" }
+                }
+            },
+            snacks: {
+                name: "Снеки и сладости",
+                emoji: "🍪",
+                subcategories: {
+                    snacks_sweets: { name: "Снеки и сладости", emoji: "🍫" }
                 }
             }
         };
 
-        // База данных товаров
-        const products = {
-            // Овощи
-            vegetables: [
-                { id: 1, name: 'Огурцы', price: 450, unit: 'кг', emoji: '🥒', isWeight: true },
-                { id: 2, name: 'Помидоры', price: 580, unit: 'кг', emoji: '🍅', isWeight: true },
-                { id: 3, name: 'Картофель', price: 220, unit: 'кг', emoji: '🥔', isWeight: true },
-                { id: 4, name: 'Лук репчатый', price: 180, unit: 'кг', emoji: '🧅', isWeight: true },
-                { id: 5, name: 'Морковь', price: 190, unit: 'кг', emoji: '🥕', isWeight: true },
-                { id: 6, name: 'Капуста', price: 150, unit: 'кг', emoji: '🥬', isWeight: true }
-            ],
-            // Фрукты
-            fruits: [
-                { id: 7, name: 'Яблоки', price: 320, unit: 'кг', emoji: '🍎', isWeight: true },
-                { id: 8, name: 'Бананы', price: 280, unit: 'кг', emoji: '🍌', isWeight: true },
-                { id: 9, name: 'Апельсины', price: 420, unit: 'кг', emoji: '🍊', isWeight: true },
-                { id: 10, name: 'Клубника', price: 890, unit: 'кг', emoji: '🍓', isWeight: true }
-            ],
-            // Мясо
-            meat: [
-                { id: 11, name: 'Говядина', price: 2800, unit: 'кг', emoji: '🥩', isWeight: true },
-                { id: 12, name: 'Курица', price: 1200, unit: 'кг', emoji: '🍗', isWeight: true },
-                { id: 13, name: 'Свинина', price: 1900, unit: 'кг', emoji: '🐷', isWeight: true }
-            ],
-            // Молочные продукты
-            dairy: [
-                { id: 14, name: 'Молоко', price: 320, unit: '1л', emoji: '🥛', isWeight: false },
-                { id: 15, name: 'Сыр', price: 1400, unit: 'кг', emoji: '🧀', isWeight: true },
-                { id: 16, name: 'Йогурт', price: 180, unit: 'шт', emoji: '🍶', isWeight: false },
-                { id: 17, name: 'Сметана', price: 280, unit: '500гр', emoji: '🥄', isWeight: false }
-            ],
-            // Бакалея
-            groceries: [
-                { id: 18, name: 'Рис', price: 420, unit: '1кг', emoji: '🍚', isWeight: false },
-                { id: 19, name: 'Макароны', price: 280, unit: '500гр', emoji: '🍝', isWeight: false },
-                { id: 20, name: 'Сахар', price: 220, unit: '1кг', emoji: '🍬', isWeight: false }
-            ]
-        };
-
+        // Глобальные переменные
         let cart = [];
         let currentMainCategory = '';
         let currentSubcategory = '';
+        const whatsappNumber = '+77001234567';
 
-        // Ваш номер WhatsApp
-        const whatsappNumber = '77057782277';
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCart();
+            renderCategories();
+            updateCartCount();
+        });
 
-        // Функции для работы с localStorage
-        function saveCart() {
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-
+        // Функции для работы с корзиной
         function loadCart() {
             const savedCart = localStorage.getItem('cart');
             if (savedCart) {
                 cart = JSON.parse(savedCart);
-                updateCartCount();
             }
         }
 
-        // Навигация по категориям
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        // Отрисовка категорий
+        function renderCategories() {
+            const categoriesGrid = document.getElementById('categoriesGrid');
+            categoriesGrid.innerHTML = '';
+            
+            for (const [key, category] of Object.entries(categories)) {
+                categoriesGrid.innerHTML += `
+                    <div class="category-card" onclick="showSubcategories('${key}')" role="button" tabindex="0" aria-label="${category.name}">
+                        <div class="category-icon" aria-hidden="true">${category.emoji}</div>
+                        <div class="category-name">${category.name}</div>
+                        <div class="category-desc">Товары этой категории</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Навигация
         function showMainCategories() {
             document.getElementById('mainCategories').classList.remove('hidden');
             document.getElementById('subcategoriesSection').classList.add('hidden');
@@ -691,8 +923,8 @@
             subcategoriesGrid.innerHTML = '';
             for (const [key, subcategory] of Object.entries(category.subcategories)) {
                 subcategoriesGrid.innerHTML += `
-                    <div class="category-card" onclick="showProducts('${key}')">
-                        <div class="category-icon">${subcategory.emoji}</div>
+                    <div class="category-card" onclick="showProducts('${key}')" role="button" tabindex="0" aria-label="${subcategory.name}">
+                        <div class="category-icon" aria-hidden="true">${subcategory.emoji}</div>
                         <div class="category-name">${subcategory.name}</div>
                         <div class="category-desc">Товары этой категории</div>
                     </div>
@@ -711,15 +943,21 @@
             
             productsGrid.innerHTML = categoryProducts.map(product => `
                 <div class="product-card">
-                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-image">
+                        ${product.image ? 
+                            `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" loading="lazy"/>
+                             <div class="product-emoji" style="display: none;">${product.emoji}</div>` :
+                            `<div class="product-emoji">${product.emoji}</div>` 
+                        }
+                    </div>
                     <div class="product-name">${product.name}</div>
                     <div class="product-price">${product.price} ₸/${product.unit}</div>
                     ${product.isWeight ? `
                         <input type="number" class="weight-input" id="weight-${product.id}" 
-                               placeholder="Введите вес в ${product.unit}" step="0.1" min="0.1" value="1">
+                               placeholder="Введите вес в ${product.unit}" step="0.1" min="0.1" value="1" aria-label="Вес товара">
                         <div class="weight-unit">Введите вес в ${product.unit}</div>
                     ` : ''}
-                    <button class="add-to-cart" onclick="addToCart(${product.id})">
+                    <button class="add-to-cart" onclick="addToCart(${product.id})" aria-label="Добавить ${product.name} в корзину">
                         Добавить в корзину
                     </button>
                 </div>
@@ -731,7 +969,10 @@
 
         function searchProducts() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            if (searchTerm.length < 2) return;
+            if (searchTerm.length < 2) {
+                showMainCategories();
+                return;
+            }
             
             // Ищем во всех товарах
             let allProducts = [];
@@ -744,21 +985,31 @@
             );
             
             const productsGrid = document.getElementById('productsGrid');
-            productsGrid.innerHTML = filteredProducts.map(product => `
-                <div class="product-card">
-                    <div class="product-image">${product.emoji}</div>
-                    <div class="product-name">${product.name}</div>
-                    <div class="product-price">${product.price} ₸/${product.unit}</div>
-                    ${product.isWeight ? `
-                        <input type="number" class="weight-input" id="weight-${product.id}" 
-                               placeholder="Введите вес в ${product.unit}" step="0.1" min="0.1" value="1">
-                        <div class="weight-unit">Введите вес в ${product.unit}</div>
-                    ` : ''}
-                    <button class="add-to-cart" onclick="addToCart(${product.id})">
-                        Добавить в корзину
-                    </button>
-                </div>
-            `).join('');
+            if (filteredProducts.length === 0) {
+                productsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: white;">Товары не найдены</div>';
+            } else {
+                productsGrid.innerHTML = filteredProducts.map(product => `
+                    <div class="product-card">
+                        <div class="product-image">
+                            ${product.image ? 
+                                `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" loading="lazy"/>
+                                 <div class="product-emoji" style="display: none;">${product.emoji}</div>` :
+                                `<div class="product-emoji">${product.emoji}</div>` 
+                            }
+                        </div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">${product.price} ₸/${product.unit}</div>
+                        ${product.isWeight ? `
+                            <input type="number" class="weight-input" id="weight-${product.id}" 
+                                   placeholder="Введите вес в ${product.unit}" step="0.1" min="0.1" value="1" aria-label="Вес товара">
+                            <div class="weight-unit">Введите вес в ${product.unit}</div>
+                        ` : ''}
+                        <button class="add-to-cart" onclick="addToCart(${product.id})" aria-label="Добавить ${product.name} в корзину">
+                            Добавить в корзину
+                        </button>
+                    </div>
+                `).join('');
+            }
             
             // Показываем секцию с товарами
             document.getElementById('mainCategories').classList.add('hidden');
@@ -774,7 +1025,10 @@
                 if (product) break;
             }
             
-            if (!product) return;
+            if (!product) {
+                showNotification('Товар не найден', 'error');
+                return;
+            }
             
             let weight = 1;
             if (product.isWeight) {
@@ -794,6 +1048,7 @@
             
             if (existingItem) {
                 existingItem.quantity += 1;
+                showNotification('Количество увеличено', 'success');
             } else {
                 cart.push({ 
                     ...product, 
@@ -801,6 +1056,7 @@
                     weight: weight,
                     totalPrice: totalPrice
                 });
+                showNotification('Товар добавлен в корзину', 'success');
             }
             
             updateCartCount();
@@ -808,26 +1064,27 @@
             
             // Анимация добавления
             const button = event.target;
+            const originalText = button.textContent;
             button.textContent = '✅ Добавлено!';
-            button.style.background = '#27ae60';
+            button.style.background = 'var(--success-color)';
+            button.disabled = true;
+            
             setTimeout(() => {
-                button.textContent = 'Добавить в корзину';
-                button.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+                button.textContent = originalText;
+                button.style.background = '';
+                button.disabled = false;
             }, 1000);
-        }
-
-        function updateCartCount() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').textContent = totalItems;
         }
 
         function openCart() {
             document.getElementById('cartModal').style.display = 'block';
+            document.getElementById('cartModal').setAttribute('aria-hidden', 'false');
             renderCartItems();
         }
 
         function closeCart() {
             document.getElementById('cartModal').style.display = 'none';
+            document.getElementById('cartModal').setAttribute('aria-hidden', 'true');
         }
 
         function renderCartItems() {
@@ -849,16 +1106,15 @@
                         <div class="cart-item-price">${item.totalPrice} ₸</div>
                     </div>
                     <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, ${item.weight}, -1)">-</button>
+                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, ${item.weight}, -1)" aria-label="Уменьшить количество">-</button>
                         <span>${item.quantity}</span>
-                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, ${item.weight}, 1)">+</button>
+                        <button class="quantity-btn" onclick="changeQuantity(${item.id}, ${item.weight}, 1)" aria-label="Увеличить количество">+</button>
                     </div>
-                    <button class="remove-item" onclick="removeFromCart(${item.id}, ${item.weight})">Удалить</button>
+                    <button class="remove-item" onclick="removeFromCart(${item.id}, ${item.weight})" aria-label="Удалить товар">Удалить</button>
                 </div>
             `).join('');
-
-            const total = cart.reduce((sum, item) => sum + (item.totalPrice * item.quantity), 0);
-            document.getElementById('cartTotal').textContent = `Итого: ${total} ₸`;
+            
+            updateCartTotal();
         }
 
         function changeQuantity(productId, weight, change) {
@@ -869,39 +1125,117 @@
                     removeFromCart(productId, weight);
                 } else {
                     renderCartItems();
-                    updateCartCount();
                     saveCart();
+                    updateCartCount();
                 }
             }
         }
 
         function removeFromCart(productId, weight) {
-            if (confirm('Удалить товар из корзины?')) {
-                cart = cart.filter(item => !(item.id === productId && item.weight === weight));
-                renderCartItems();
-                updateCartCount();
-                saveCart();
+            cart = cart.filter(item => !(item.id === productId && item.weight === weight));
+            renderCartItems();
+            saveCart();
+            updateCartCount();
+            showNotification('Товар удален из корзины', 'warning');
+        }
+
+        function updateCartTotal() {
+            const total = cart.reduce((sum, item) => sum + (item.totalPrice * item.quantity), 0);
+            document.getElementById('cartTotal').textContent = `Итого: ${total} ₸`;
+        }
+
+        function validateForm() {
+            const name = document.getElementById('customerName');
+            const phone = document.getElementById('customerPhone');
+            const address = document.getElementById('customerAddress');
+            
+            // Очищаем предыдущие ошибки
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.form-group input').forEach(el => el.classList.remove('error'));
+            
+            let isValid = true;
+            
+            // Валидация имени
+            if (name.value.trim().length < 2) {
+                name.classList.add('error');
+                document.getElementById('nameError').textContent = 'Имя должно содержать минимум 2 символа';
+                isValid = false;
             }
+            
+            // Валидация телефона
+            const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
+            if (!phoneRegex.test(phone.value.replace(/\s/g, ''))) {
+                phone.classList.add('error');
+                document.getElementById('phoneError').textContent = 'Введите корректный номер телефона';
+                isValid = false;
+            }
+            
+            // Валидация адреса
+            if (address.value.trim().length < 5) {
+                address.classList.add('error');
+                document.getElementById('addressError').textContent = 'Адрес должен содержать минимум 5 символов';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            
+            if (!validateForm()) {
+                showNotification('Пожалуйста, исправьте ошибки в форме', 'error');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                showNotification('Корзина пуста', 'warning');
+                return;
+            }
+            
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const address = document.getElementById('customerAddress').value;
+            
+            // Формируем сообщение
+            let message = `🛒 *Новый заказ*\n\n`;
+            message += `👤 *Имя:* ${name}\n`;
+            message += `📞 *Телефон:* ${phone}\n`;
+            message += `📍 *Адрес:* ${address}\n\n`;
+            message += `📦 *Заказ:*\n`;
+            
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.emoji} ${item.name}`;
+                if (item.isWeight) {
+                    message += ` - ${item.weight} ${item.unit}`;
+                }
+                message += ` × ${item.quantity} шт. = ${item.totalPrice * item.quantity} ₸\n`;
+            });
+            
+            const total = cart.reduce((sum, item) => sum + (item.totalPrice * item.quantity), 0);
+            message += `\n💰 *Итого:* ${total} ₸`;
+            
+            // Открываем WhatsApp
+            const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Показываем уведомление
+            showNotification('Заказ отправлен в WhatsApp!', 'success');
+            
+            // Очищаем корзину и форму
+            setTimeout(() => {
+                cart = [];
+                saveCart();
+                updateCartCount();
+                closeCart();
+                document.getElementById('orderForm').reset();
+            }, 1000);
         }
 
         function showNotification(message, type) {
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
             notification.textContent = message;
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 20px;
-                border-radius: 10px;
-                color: white;
-                font-weight: bold;
-                z-index: 10000;
-                animation: slideIn 0.3s ease;
-                background: ${type === 'error' ? '#ff4757' : '#27ae60'};
-            `;
-            
             document.body.appendChild(notification);
             
             setTimeout(() => {
@@ -909,77 +1243,19 @@
             }, 3000);
         }
 
-        function clearForm() {
-            document.getElementById('customerName').value = '';
-            document.getElementById('customerPhone').value = '';
-            document.getElementById('customerAddress').value = '';
-        }
-
-        function sendToWhatsApp() {
-            const name = document.getElementById('customerName').value.trim();
-            const phone = document.getElementById('customerPhone').value.trim();
-            const address = document.getElementById('customerAddress').value.trim();
-
-            // Валидация
-            if (!name || !phone || !address) {
-                showNotification('Пожалуйста, заполните все поля', 'error');
-                return;
-            }
-
-            // Валидация телефона
-            const phoneRegex = /^[\+]?[7-8]?[0-9\s\-\(\)]{10,}$/;
-            if (!phoneRegex.test(phone)) {
-                showNotification('Введите корректный номер телефона', 'error');
-                return;
-            }
-
-            if (cart.length === 0) {
-                showNotification('Ваша корзина пуста', 'error');
-                return;
-            }
-
-            // Формирование сообщения
-            let message = `🛒 *НОВЫЙ ЗАКАЗ*\n\n`;
-            message += `👤 *Клиент:* ${name}\n`;
-            message += `📞 *Телефон:* ${phone}\n`;
-            message += `📍 *Адрес:* ${address}\n\n`;
-            message += `📋 *Заказ:*\n`;
-            
-            cart.forEach(item => {
-                if (item.isWeight) {
-                    message += `${item.emoji} ${item.name} - ${item.weight}${item.unit} × ${item.quantity}шт = ${item.totalPrice * item.quantity}₸\n`;
-                } else {
-                    message += `${item.emoji} ${item.name} - ${item.quantity}шт × ${item.price}₸ = ${item.totalPrice * item.quantity}₸\n`;
-                }
-            });
-
-            const total = cart.reduce((sum, item) => sum + (item.totalPrice * item.quantity), 0);
-            message += `\n💰 *ИТОГО: ${total}₸*`;
-
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-            
-            // Показываем уведомление об успехе
-            showNotification('Заказ отправлен! Спасибо за покупку!', 'success');
-            
-            // Очищаем корзину и форму
-            cart = [];
-            updateCartCount();
-            closeCart();
-            clearForm();
-            saveCart();
-        }
-
-        // Закрытие модального окна при клике вне его
-        window.onclick = function(event) {
-            const modal = document.getElementById('cartModal');
-            if (event.target === modal) {
+        // Закрытие модальных окон при клике вне их
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
                 closeCart();
             }
-        }
+        });
 
-        // Инициализация
-        loadCart();
+        // Поддержка клавиатуры
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeCart();
+            }
+        });
     </script>
 </body>
 </html>
